@@ -1,0 +1,24 @@
+- to find a file in the tomcat directory, eg say for example you are looking for the context.xml file, just go to the tomcat directory and search with this command
+		# find / -name context.xml
+
+- to shutdown tomcat sever, find your way in to the bin directory within the tomcat directory and do  # ./shutdown.sh. to start back the tomcat service, simply do # ./startup.sh
+- to aedit user login file so as to access the tomcat service, we need to go edit the conf directory within tomcat
+
+please note that we installed "deploy to container" plugin on Jenkins 
+then configure tomcat server with credential.
+to configure credentials, go to 
+	'manage credentils' on jenkins
+	clink on Jenkins
+	click global creendial (unrestricted)
+	Click add credential						<role rolename="manager-gui"/>
+									<role rolename="manager-script"/>
+									<role rolename="manager-jmx"/>
+									<role rolename="manager-status"/>
+									<user username="admin" password="admin" roles="manager-gui, manager-script, manager-jmx, manager-status"/>
+	We will use this line credential to configure tomcat 		<user username="deployer" password="deployer" roles="manager-script"/>
+									<user username="tomcat" password="s3cret" roles="manager-gui"/>
+	enter usersname as deployer.
+	password is also deployer
+	ID is tomcat_deployer
+	Description is also tomcat_deployer
+	Click OK

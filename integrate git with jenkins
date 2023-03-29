@@ -1,0 +1,10 @@
+1. you need to install git on server via the MobaXterm SSH with the below command
+		# yum install git
+2. confirm installtion with 
+		git --version
+
+3. next go into jenkins gui and download git plugins. search for the plugin that allows you to integrate git with jenkins.
+5. next go to global tool configuration. scroll down to configure your path to git executable.
+	to get the path direction, enter the below code on your terminal to show the git diection. 
+				# whereis git
+	it is advisable to leave the path as "git" first, but if this fail, we can change the directory to the copied path generated on the server terminal

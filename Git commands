@@ -1,0 +1,27 @@
+$ git help config     		for help on git commands
+$ git init			to initialize a directory
+$ cd				to change directory on git
+$ pwd				to get detail on the directory you currently working
+$ mkdir				to create a new directory
+$ git add <name of application>	to add out application file on desktop to a staging area
+$ git commit -m "comment"	to commit the code to our local directory
+$ clear				to clear screen
+$ git config --global user.name "Ooladipupo" 			to connect our git to github
+$ git config --global user.email "olufowobi2234@gmail.com" 	to connect our git to github
+$ git pust origin master 	to push code from local repository to remote repository
+$ git log			to show all commit history and possibly revert to any previous commit version.
+$ git pull
+$ git checkout
+$ git merge
+$ git diff 			to see changes made to a file
+$ git push origin <branch name>	push the branch to the remote repository so that others can use
+$ git clone			to create a git repository from a remote source
+$ git branch <branch name>	to create a new branch
+$ git checkout <branch name>	to switch from one branch to another
+$ git merge <branch name>	merge a branch into the active branch
+$ git rebase			to reapply commits on top of another base tip
+
+what is the difference between fork and clone
+branch in git			this a seperate branch differnt fro the master branch. after work is completed on the seperate branch, it can then be merge with the master branch
+git Rebase			this is the process of combining a sequence of commits to a new base commit
+collaborator 			to have team member as collaborator to work on your code. you can grant limited persmission to them or give a more wider permission.

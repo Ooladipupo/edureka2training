@@ -1,0 +1,24 @@
+1. create an instance first
+2. use mobaxterm to SSH into you instance by keying in the public IP of you instance, set uers as ec2-user, and link your intance pair to the Mobaxterm, then click OK
+3. Once in the Mobaxterm terminal, switch from IAM user to Root by using the below command. 
+				$ sudo su -
+4. google jenkins. go to jenkins download and deployment. click on stable(TLS) and scroll down. click on CentOS/Fedora/RedHat to connect with Linux package
+5. You will see instructions to run the command on your MobaXterm
+	to have an idea of all the packgae within your amazon linux instance, run this command 
+				# amazon-linux-extras
+6. install java and jenkins using this command
+	 # sudo amazon-linux-extras install java-openjdk11
+	or # yum install fontconfig java-11-openjdk.
+7. install jenkins also with 
+	#   yum install jenkins.
+8. confirm installtion of jenkins with this command
+	# service jenkins status
+N:B IN n some instance, you might need to install epel first before you can install packages. 
+
+9. Confirm java installation with 
+		#java -version
+10. Start the jenkins with 
+		# service jenkins start
+
+the jenkins password i used (b92fe17e51b547f98c1f45822cd4da4c)
+

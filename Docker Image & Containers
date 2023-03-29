@@ -1,0 +1,84 @@
+
+FIRST IS TO SET UP DOCKER ON A SERVER
+- 	You can set up an amazon linux server first
+-	install docker
+-	start docker service.
+
+1. To get started. set up an ec2 instance and log into the instance terminal using MOBAXTERM OR pUTTY,
+2. Switch to a root account (sudo su -) to install docker package
+3. next is to instal docker with this command (# yum install docker -y)
+4. check the status of the installed docker (# service docker status), you will notice the instaled package is not running yet.
+5. make the service to run by (# service docker start). again you can check fot the status by doing 'service docker status'
+6. you can run som command like (# docker images) which will show you all images available on the docker host
+7. for more information on docker comand, we can do # docker --help
+8. we can pull docker images from docker hub . we can also build our own imgae from dockerfile using docker build command
+9. after youve created a docker file, next is to build the file using (# docker build -t mytomcat .) where -t is the tag name, and . (i.e full stop) is the present directory
+
+
+
+
+
+
+
+
+There are many container tool out thee but docker is the most popular
+1. Container are made of stack images ontop of each other. and at the base of each container we will have linux image. they are small reason they are alpine. 
+	On top of base image, there will be application layer. docker images are stored on docker hub.it is a public repository. 
+2. you can start with simple docker command like for example (# docker run postgree:9.6) where the 9.6 is the version of the specific docker image you intend to run on the server. if you dont specify a version, the system will authomatically install the lates version on the server/system
+	Note that docker images are made up of severall layer and are seperately downloaded on your machine during installtion
+	also note that the run command automaticlly start the image upon installtion without needing to input any other command
+3. TO see the list pf all running containers, you should do the below command. the command shows the container ID, IMAGE NAME
+	$ docker ps  . 
+  - Image is actually the package, i.e artifct with all the other compone need to run like dependencies, configuration. etc. container is when you put the image on your server and it start to run. container is  running image.
+  - You also need to know that you can run two version of a partcular image simultaneously on your container ( for example 9.6 and 10.1). all you need yo do is to also use the run command to download/install the other version of the image
+  - to see the two running versions, you can do ($ docker ps)
+4. Docker VS Virtual Machine. a typical operating system has two layers OS kERNEL and Application layer. 
+	The kernel is directly ontop of the hardware and communicate to the hardware component like cpu, memory, etc.
+	the application layer run ontop of the kernel layer.
+	There are alot of Linus OS out there (ubuntu, dbm, mint) with different graphical interface, file system (application). However, they run on same linus kernel.
+5. Both docker and VM are virtualization tools. however there is difference between both. while docker virtualizes the applicaton layer and uses the kernel of the host because docker doesnt have its won kernel so it needs to depend on that of its host.
+   VM on the other hand virtualizes the whole operating system (that is the kernel and the applicatio layers). so when you download an OS, it doesnt use the kernal of its host, rather it boot up its own kernel
+   	1. SIZE. the size of docker images are smaller magabite in nature while VM are large gb in nature
+	11. SPEED. you can run and start docker containers much faster than VMs. rason for this is that anytime you try to start a VM, it need to boot up its kernel first unlike in the case of a docer which doesnt have to go through all this long process.
+	111. COMPATIBILITY. you can run VM of any OS on any OS hOST. but this cant be done with windowns. a windown based docker image might not be compatible with a linus kernel of the host
+  for the above reason, you need to check your docker image compatibiulity with the host kernel before installation. 
+  Although there is a workaround through the use of DOCKER TOOLBOX which help abstract away the kernal to make it posible possible for a host  to run any image
+
+6. any docker installtion comes with a docker engine which soms in 3 packags
+	1. server: which is responsible for pulling images, storing, starting and stopping containers. tHE SERVER part contins the cntainer run time, volume, and network for network configuration. and lastly, the server enable individual to build own docker images
+	11. API: responsible for interacting with the docker server.
+	111. CLI:  a commad line interface for executing docker commands 
+
+7. for guide on installtion on docker, check google for docker official installtion guide and search fro installtion on you specific OS (mac, linus, window)
+   Please note that linux support docker natively. while for mac nd window, you need to install docker desktop.
+
+8. docker commands included docker pull, docker run, docker start, docker stop, docker ps, (docker logs, and docker exec -it, for debugging)
+
+
+   - ALL ENVIRONEMNTAL VArioanles need to runa an application like file system for storage of the images, and other enviormmental configurations are provided by the docker container. In summary, a docker container will contain the application/docker image, file system (which is virtual in nature), environmental configuratio, etc.
+   - docker container run on port 5000 which enables it to talk with the image running inside of the container
+	$ docker pull <redis:9.7> 		to download the docker image and version from the remote to local environment
+	$ docker images 			to see the varios images downloaded on your system
+	$ docker run <redis>:			to run the redis image so you application can connect to it. This will start the image in a container. it does 2 function, which is pull and start immediately
+	$ docker ps				to see the list of all running docker container
+	$ docker ps -a				to see list of all running or stopped containers
+	^C1					to terminate a running container which will stop the running application
+	$ docker run -d <redis>			to start new container in a detached mode
+  to restart a container again (say something went wrong with the docker while runnig) you will need the docker ID to get it started. docker ID can  be gotten by suing the coomand $ docker ps to list out all container and their ID regardless of state whether runnin or not.
+	$ docker start <ID>			to start a container
+	$ docker stop <id>			to stop a container with a particular ID
+
+  when running 2 different version of a docker image, make sure the container port number doesnt collide. each image must listen on different port number. to go about this, you can specifiy the port number using the below command to bind
+	$ docker run -p<host_port>:<port you binding to> <redis>      	where host port could be 6000, and container port you binding to could be 6379. as below
+	$ docker run -p6000:6379 redis
+	$ docker run -p6001:6379 redis:4.0
+
+ It is advisable to run container in detached mode (-d). this enable the application running with the container are able to un unattended in the background. using the below command  for instance
+	$ docker run -p6001:6379 -d redis:4.0 
+	$ docker run -d
+	$ docker logs <continer id or name>	to see logs of activity on a container
+	
+	$ docker exec -it <container ID or name> /bin/bash 		to access the container terminal to do some debugging like check log file, configuration file, or print out environemental variables (-it means interactive terminal). this command will take you to the root user account to access the inside of the container. use 'exit' command to exit the terminal
+
+
+

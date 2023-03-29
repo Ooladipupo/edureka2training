@@ -1,0 +1,45 @@
+Steps to follow
+	setup Maven on Jenkins server
+	set up environment variable
+		i.e JAVA_HOME, ME, M2_HOME
+	Install mavin plugin
+	configure maven and java
+
+1. To start with, google mavin installation on linus, click on mavin.apache.org
+2. Download apache mavin by gooogling maven download. we are downloading Binary tar.gz archiv by right clicking to copy the link
+  -this link will be installed on our jenkins server (which w already created on AWS and access via SSH USING MOBAXTERM)
+  -we have ned to install this in the OPT directory, so we need to change directory to opt with the below command
+			# cd /opt
+  - used the wget to download the link to our server by
+	# wget https://dlcdn.apache.org/maven/maven-3/3.9.0/binaries/apache-maven-3.9.0-bin.tar.gz
+3. confirm the presence of the file in the opt directory by doing ll command
+4. Next is to extract the dpwnloaded file with the following command
+	# tar -xvzf apache-maven-3.9.0-bin.tar.gz
+5. confirm the download was successful by doing ll
+6. you can change/move the apache-maven-3.9.0 to maven by using the below command
+	# mv apache-maven-3.9.0 maven
+7. confirm that the move/change of name to maven was successful by doing ll
+8. to see the list of directories inside maven, first change directory to maven by (# cd maven), then do ll to list out the directories.
+9. YOU WANT TO LIST OUT THE DIRECtories with the bin folder by cirst changing directories (# cd bin), then followed by ll
+10. next is to execute the mvn directory by doing
+	# ./mvn -v
+11. next is to set up the environement variable under the bash profile. to access the bash profile, change directory to root fitst (cd ~), then list out using # ll -a.
+	Note that using the ll or ls will not help here. so make sure to use the LL -a commancd
+12. we need to edit the .bash profile using or vi/vim editor. then add the following immediately under the fi as below
+		fi
+		M2_HOME=/opt/maven
+		M2=/opt/maven/bin
+		JAVA_HOME=/usr/lib/jvm/java-11-openjdk-11.0.16.0.8-1.amzn2.0.1.x86_64
+
+  Aalso we need to edit the PATH=$PATH:$HOME/bin as PATH=$PATH:$HOME/bin:$JAVA_HOME:$M2_HOME:$M2
+
+	pLEASE NOTE THAT the above item (/usr/lib/jvm/java-11-openjdk-11.0.16.0.8-1.amzn2.0.1.x86_64) is the path of the installed java with you can get using the find command as below
+	 (# find / -name jvm). then change directory to the /usr/lib/jvm by using (cd /usr/lib/jvm) which will show the installed java application.
+  Alternatively, you can get the directory path of the java by typing the below command # find / -name java-11* . and copy the path to be pasted on the bash editor above.
+13. To load the modification we can relogin in back to our root account or simply do the below source command as (# source .bash_profile) will load the load the bash again. you will see the java path, maven path
+14. YOU CAN CONFIRM THE updathed bath by doing (echo $PATH). you can do this before point 13 above to see the changes.
+15. now you should be able to execute maven from anywhere. try this with (# mvn -v)
+16. we need to tell jenkins the location of out java and maven. but to go about this, we need to install maven plugin on jenkins first
+17. install the maven plugin on jenkins
+18. go to clogal tool configuration to add java path and maven path on jenkins.
+	java path is /usr/lib/jvm/java-11-openjdk-11.0.16.0.8-1.amzn2.0.1.x86_64
